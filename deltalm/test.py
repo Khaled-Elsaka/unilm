@@ -1,6 +1,6 @@
-model_dir = '/content/drive/MyDrive/Translation Fine-Tuning/Exploring new models/DeltaLm'
-model = "deltalm-large.pt"
-spm = model_dir+"/spm.model"
+model_dir = '/path/to/pretrained/model/directory'
+model = "english-arabic-model.pt"
+spm = '/path/to/sentencepiece/model'
 
 # from fairseq.models.transformer import TransformerModel
 import torch
@@ -18,6 +18,6 @@ model = DeltaLMModel.from_pretrained(
 model.eval()
 
 # Translate a sentence from German to English
-src_sentence = 'Hallo Welt!'
+src_sentence = 'Hello, world!'
 tgt_sentence = model.translate(src_sentence, beam=5)
 print(tgt_sentence)
