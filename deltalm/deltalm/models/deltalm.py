@@ -97,6 +97,18 @@ class DeltaLMModel(TransformerModel):
         )
 
     @classmethod
+    def from_pretrained(cls, model_name_or_path, checkpoint_file, data_name_or_path, **kwargs):
+        kwargs['task'] = 'translation'
+        from fairseq import hub_utils
+        x = hub_utils.from_pretrained(
+            model_name_or_path,
+            checkpoint_file,
+            data_name_or_path,
+            **kwargs,
+        )
+        return cls(x['args'], x['task'], x['models'])
+
+    @classmethod
     def build_encoder(cls, args, tgt_dict, embed_tokens):
         return DeltaLMEncoder(TransformerConfig.from_namespace(args), tgt_dict, embed_tokens)
 
